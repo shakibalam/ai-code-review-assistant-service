@@ -7,6 +7,7 @@ import com.flyct.prreview.dto.LlmRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -74,6 +75,18 @@ public class LlmClient {
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(request)
                 .retrieve()
+                .onStatus(
+                        HttpStatus::isError,
+                        response -> response.bodyToMono(String.class)
+                                .flatMap(body -> {
+                                    log.error("LLM API ERROR RESPONSE: {} - {}", response.statusCode(), body);
+                                    return Mono.error(
+                                            new RuntimeException(
+                                                    "LLM API Error: " + response.statusCode() + " " + body
+                                            )
+                                    );
+                                })
+                )
                 .bodyToMono(LlmRawResponse.class)
                 .timeout(Duration.ofMillis(timeoutMs))
                 .retryWhen(Retry.backoff(maxRetries, Duration.ofSeconds(2))
