@@ -115,7 +115,7 @@
                             <div className="p-2 bg-indigo-600 rounded-lg">
                                 <Icon name="bot" className="text-white" />
                             </div>
-                            <h1 className="text-2xl font-bold tracking-tight text-white">PR Copilot <span className="text-indigo-400">Core</span></h1>
+                            <h1 className="text-2xl font-bold tracking-tight text-white">FLYCT <span className="text-indigo-400">PR Review AI Assistant Service</span></h1>
                         </div>
                         <div className="text-sm text-slate-400 hidden md:block">
                             Intelligent Code Analysis Service
@@ -281,8 +281,23 @@
                                                                     <span>{s.file_path || s.filePath || 'Unknown File'}</span>
                                                                     {(s.line_number || s.lineNumber) && <span>:L{s.line_number || s.lineNumber}</span>}
                                                                 </div>
-                                                                <p className="text-slate-300 text-sm">{s.comment}</p>
-                                                            </div>
+                                                                <p className="text-slate-300 text-sm whitespace-pre-line">
+                                                                    {s.comment.split('```').map((part, idx) => {
+                                                                        if (idx % 2 === 1) {
+                                                                            // Extract language identifier if present
+                                                                            const lines = part.split('\n');
+                                                                            const language = lines[0].match(/^[a-z]+$/) ? lines[0] : null;
+                                                                            const code = language ? lines.slice(1).join('\n') : part;
+                                                                            return (
+                                                                                <pre key={idx} className="bg-slate-950 p-3 rounded-md border border-slate-700 my-2 overflow-x-auto text-xs text-emerald-400 font-mono">
+                                                                                    {language && <div className="text-[10px] text-slate-500 mb-1 uppercase">{language}</div>}
+                                                                                    <code>{code}</code>
+                                                                                </pre>
+                                                                            );
+                                                                        }
+                                                                        return <span key={idx}>{part}</span>;
+                                                                    })}
+                                                                </p>                                                            </div>
                                                         );
                                                     })}
                                                 </div>

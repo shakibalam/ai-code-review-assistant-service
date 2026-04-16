@@ -52,9 +52,9 @@ public class PromptBuilderService {
         sb.append("2. Extract the EXACT line number where the change occurs. The line number must be from the NEW (+) version.\n");
         sb.append("3. If you cannot identify a specific line/file, mention it in 'summary' and DO NOT add to 'suggestions'.\n");
         sb.append("4. Use JSON keys exactly: 'file_path', 'line_number', 'comment'.\n");
-        sb.append("5. Keep comments CONCISE and MEANINGFUL (max 2 sentences).\n");
+        sb.append("5. IMPORTANT: 90% of the 'comment' content MUST be contained within code blocks (```java ... ```). Keep explanatory text to an absolute minimum (one sentence max).\n");
         sb.append("6. ALWAYS include a 'Correct Code' block using markdown in the comment to show how to fix the issue.\n");
-        sb.append("Example comment: 'Use Objects.requireNonNull for null safety.\n\n```java\nObjects.requireNonNull(user, \"User cannot be null\");\n```'\n\n");
+        sb.append("Example comment: 'Use Objects.requireNonNull for null safety:\n\n```java\nObjects.requireNonNull(user, \"User cannot be null\");\n```'\n\n");
         
         sb.append("PR Diff Content:\n");
         sb.append("```diff\n");
