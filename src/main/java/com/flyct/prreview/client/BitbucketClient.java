@@ -63,12 +63,30 @@ public class BitbucketClient {
      * POST COMMENT: Includes 3 retries with exponential backoff.
      */
     public Mono<Void> postComment(String workspace, String repoSlug, Long prId, String comment) {
-        log.info("POSTING COMMENT: PR #{}", prId);
+        return postCommentInternal(workspace, repoSlug, prId, 
+                BitbucketCommentRequest.builder()
+                        .content(new BitbucketCommentRequest.Content(comment))
+                        .build());
+    }
+
+    /**
+     * POST INLINE COMMENT: Posts a comment to a specific file and line.
+     */
+    public Mono<Void> postInlineComment(String workspace, String repoSlug, Long prId, String comment, String filePath, Integer lineNumber) {
+        log.info("POSTING INLINE COMMENT: PR #{} on {} line {}", prId, filePath, lineNumber);
         
         BitbucketCommentRequest request = BitbucketCommentRequest.builder()
                 .content(new BitbucketCommentRequest.Content(comment))
+                .inline(BitbucketCommentRequest.Inline.builder()
+                        .path(filePath)
+                        .to(lineNumber)
+                        .build())
                 .build();
 
+        return postCommentInternal(workspace, repoSlug, prId, request);
+    }
+
+    private Mono<Void> postCommentInternal(String workspace, String repoSlug, Long prId, BitbucketCommentRequest request) {
         return webClient.post()
                 .uri("/repositories/{workspace}/{repo_slug}/pullrequests/{pull_request_id}/comments", 
                      workspace, repoSlug, prId)

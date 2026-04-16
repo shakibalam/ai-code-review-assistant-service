@@ -16,5 +16,15 @@ import java.util.List;
 public class AiReviewResponse {
     private String summary;
     private String severity;
-    private List<String> suggestions;
+    private List<Suggestion> suggestions;
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Suggestion {
+        private String filePath;
+        private Integer lineNumber;
+        private String comment;
+    }
 }

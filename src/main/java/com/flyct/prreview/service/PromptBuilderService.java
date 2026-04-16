@@ -37,10 +37,17 @@ public class PromptBuilderService {
 
         sb.append("Output JSON schema:\n");
         sb.append("{\n");
-        sb.append("  \"summary\": \"Brief summary\",\n");
+        sb.append("  \"summary\": \"Brief summary of the PR\",\n");
         sb.append("  \"severity\": \"LOW/MEDIUM/HIGH/CRITICAL\",\n");
-        sb.append("  \"suggestions\": [\"Suggestion 1\", \"Suggestion 2\"]\n");
+        sb.append("  \"suggestions\": [\n");
+        sb.append("    {\n");
+        sb.append("      \"filePath\": \"src/main/java/com/example/MyFile.java\",\n");
+        sb.append("      \"lineNumber\": 42,\n");
+        sb.append("      \"comment\": \"Specific suggestion for this line\"\n");
+        sb.append("    }\n");
+        sb.append("  ]\n");
         sb.append("}\n\n");
+        sb.append("Important: Identify the exact file path and line number from the diff. For the file path, use the path after 'b/' in the 'diff --git' header (e.g., 'src/MyFile.java' instead of 'b/src/MyFile.java'). If a suggestion applies to multiple lines, use the first line of the block.\n\n");
         
         sb.append("PR Diff Content:\n");
         sb.append("```diff\n");

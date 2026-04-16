@@ -131,7 +131,11 @@ public class LlmClient {
         return AiReviewResponse.builder()
                 .summary("AI Review System Notification")
                 .severity("LOW")
-                .suggestions(Collections.singletonList(message))
+                .suggestions(Collections.singletonList(
+                        AiReviewResponse.Suggestion.builder()
+                                .comment(message)
+                                .build()
+                ))
                 .build();
     }
 }
