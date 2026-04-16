@@ -41,13 +41,20 @@ public class PromptBuilderService {
         sb.append("  \"severity\": \"LOW/MEDIUM/HIGH/CRITICAL\",\n");
         sb.append("  \"suggestions\": [\n");
         sb.append("    {\n");
-        sb.append("      \"filePath\": \"src/main/java/com/example/MyFile.java\",\n");
-        sb.append("      \"lineNumber\": 42,\n");
+        sb.append("      \"file_path\": \"src/main/java/com/example/MyFile.java\",\n");
+        sb.append("      \"line_number\": 42,\n");
         sb.append("      \"comment\": \"Specific suggestion for this line\"\n");
         sb.append("    }\n");
         sb.append("  ]\n");
         sb.append("}\n\n");
-        sb.append("Important: Identify the exact file path and line number from the diff. For the file path, use the path after 'b/' in the 'diff --git' header (e.g., 'src/MyFile.java' instead of 'b/src/MyFile.java'). If a suggestion applies to multiple lines, use the first line of the block.\n\n");
+        sb.append("STRICT RULES:\n");
+        sb.append("1. Extract the EXACT file path from the 'diff --git' header (use the path after 'b/').\n");
+        sb.append("2. Extract the EXACT line number where the change occurs. The line number must be from the NEW (+) version.\n");
+        sb.append("3. If you cannot identify a specific line/file, mention it in 'summary' and DO NOT add to 'suggestions'.\n");
+        sb.append("4. Use JSON keys exactly: 'file_path', 'line_number', 'comment'.\n");
+        sb.append("5. Keep comments CONCISE and MEANINGFUL (max 2 sentences).\n");
+        sb.append("6. ALWAYS include a 'Correct Code' block using markdown in the comment to show how to fix the issue.\n");
+        sb.append("Example comment: 'Use Objects.requireNonNull for null safety.\n\n```java\nObjects.requireNonNull(user, \"User cannot be null\");\n```'\n\n");
         
         sb.append("PR Diff Content:\n");
         sb.append("```diff\n");
