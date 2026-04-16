@@ -12,20 +12,20 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
         .font-mono { font-family: 'Fira Code', monospace; }
-        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .accent-glow { box-shadow: 0 0 20px rgba(99, 102, 241, 0.2); }
-        .btn-primary { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); transition: all 0.3s ease; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
-        .prose pre { background: #1e293b; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; color: #e2e8f0; }
-        .prose code { color: #818cf8; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(226, 232, 240, 1); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .accent-glow { box-shadow: 0 0 20px rgba(99, 102, 241, 0.1); }
+        .btn-primary { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); transition: all 0.3s ease; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3); }
+        .prose pre { background: #1e293b; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; color: #f8fafc; }
+        .prose code { color: #f472b6; }
         .custom-scrollbar::-webkit-scrollbar { width: 8px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #1e293b; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #e2e8f0; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
     </style>
 </head>
-<body>
+<body class="bg-slate-50">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -107,7 +107,7 @@
             };
 
             return (
-                <div className="min-h-screen bg-slate-950 p-4 md:p-8">
+                <div className="min-h-screen bg-slate-50 p-4 md:p-8">
                     {/* Header */
                     console.log("App Rendering")}
                     <header className="max-w-6xl mx-auto mb-10 flex justify-between items-center">
@@ -115,9 +115,9 @@
                             <div className="p-2 bg-indigo-600 rounded-lg">
                                 <Icon name="bot" className="text-white" />
                             </div>
-                            <h1 className="text-2xl font-bold tracking-tight text-white">FLYCT <span className="text-indigo-400">PR Review AI Assistant Service</span></h1>
+                            <h1 className="text-2xl font-bold tracking-tight text-slate-900">FLYCT <span className="text-indigo-600">PR Review AI Assistant Service</span></h1>
                         </div>
-                        <div className="text-sm text-slate-400 hidden md:block">
+                        <div className="text-sm text-slate-500 hidden md:block">
                             Intelligent Code Analysis Service
                         </div>
                     </header>
@@ -130,51 +130,51 @@
                                 <div className="space-y-4">
                                     <div className="grid grid-cols-2 gap-4">
                                         <div className="space-y-2">
-                                            <label className="text-sm font-medium text-slate-400">Repository Name</label>
+                                            <label className="text-sm font-medium text-slate-600">Repository Name</label>
                                             <input 
                                                 type="text" 
                                                 name="repo"
                                                 value={formData.repo}
                                                 onChange={handleInputChange}
                                                 placeholder="e.g. my-awesome-project"
-                                                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                                                className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm text-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                                                 required
                                             />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-sm font-medium text-slate-400">Pull Request ID</label>
+                                            <label className="text-sm font-medium text-slate-600">Pull Request ID</label>
                                             <input 
                                                 type="text" 
                                                 name="prId"
                                                 value={formData.prId}
                                                 onChange={handleInputChange}
                                                 placeholder="e.g. 123"
-                                                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                                                className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm text-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                                                 required
                                             />
                                         </div>
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium text-slate-400 flex justify-between">
+                                        <label className="text-sm font-medium text-slate-600 flex justify-between">
                                             <span>Diff Content</span>
-                                            <span className="text-[10px] uppercase text-slate-500">Paste your git diff here</span>
+                                            <span className="text-[10px] uppercase text-slate-400">Paste your git diff here</span>
                                         </label>
                                         <textarea 
                                             name="diff"
                                             value={formData.diff}
                                             onChange={(e) => setFormData(prev => ({ ...prev, diff: e.target.value }))}
                                             placeholder="diff --git a/src/main.js b/src/main.js..."
-                                            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-xs font-mono h-64 focus:ring-2 focus:ring-indigo-500 outline-none transition-all custom-scrollbar resize-none"
+                                            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-xs font-mono text-slate-700 h-64 focus:ring-2 focus:ring-indigo-500 outline-none transition-all custom-scrollbar resize-none"
                                             required
                                         ></textarea>
                                     </div>
 
-                                    <div className="flex items-center justify-between p-4 bg-slate-800/50 rounded-xl border border-slate-700">
+                                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-200">
                                         <div className="flex items-center space-x-3">
-                                            <Icon name="message-square" className="text-indigo-400" />
+                                            <Icon name="message-square" className="text-indigo-600" />
                                             <div>
-                                                <p className="text-sm font-medium">Post to Bitbucket</p>
+                                                <p className="text-sm font-medium text-slate-800">Post to Bitbucket</p>
                                                 <p className="text-[10px] text-slate-500">Automatically add review comments</p>
                                             </div>
                                         </div>
@@ -186,7 +186,7 @@
                                                 onChange={handleInputChange}
                                                 className="sr-only peer" 
                                             />
-                                            <div className="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                            <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
                                         </label>
                                     </div>
                                 </div>
@@ -226,14 +226,14 @@
                             )}
 
                             {loading && (
-                                <div className="h-full flex flex-col items-center justify-center glass rounded-2xl p-12">
+                                <div className="h-full flex flex-col items-center justify-center bg-white rounded-2xl p-12 border border-slate-200 shadow-sm">
                                     <div className="relative">
-                                        <div className="w-20 h-20 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin"></div>
+                                        <div className="w-20 h-20 border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin"></div>
                                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                                            <Icon name="brain" className="text-indigo-400" size={24} />
+                                            <Icon name="brain" className="text-indigo-600" size={24} />
                                         </div>
                                     </div>
-                                    <h3 className="mt-6 text-indigo-300 font-medium animate-pulse">Scanning for potential issues...</h3>
+                                    <h3 className="mt-6 text-indigo-900 font-medium animate-pulse">Scanning for potential issues...</h3>
                                 </div>
                             )}
 
@@ -248,48 +248,46 @@
                             )}
 
                             {response && (
-                                <div className="glass rounded-2xl overflow-hidden flex flex-col h-[calc(100vh-12rem)] min-h-[600px]">
-                                    <div className="p-6 bg-slate-800/80 border-b border-slate-700 flex justify-between items-center">
+                                <div className="rounded-2xl overflow-hidden flex flex-col h-[calc(100vh-12rem)] min-h-[600px] bg-white border border-slate-200 shadow-lg">
+                                    <div className="p-6 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
                                         <div className="flex items-center space-x-3">
-                                            <div className="w-10 h-10 bg-emerald-500/20 rounded-full flex items-center justify-center">
-                                                <Icon name="sparkles" className="text-emerald-400" />
+                                            <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
+                                                <Icon name="sparkles" className="text-emerald-600" />
                                             </div>
                                             <div>
-                                                <h3 className="font-bold text-slate-100">AI Review Feedback</h3>
-                                                <p className="text-[10px] text-slate-400 uppercase tracking-widest">Model: GPT-4 Equivalent</p>
+                                                <h3 className="font-bold text-slate-900">AI Review Feedback</h3>
+                                                <p className="text-[10px] text-slate-500 uppercase tracking-widest">Model: GPT-4 Equivalent</p>
                                             </div>
                                         </div>
-                                        <div className="flex items-center space-x-2 bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full text-xs font-medium border border-emerald-500/20">
-                                            <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                                        <div className="flex items-center space-x-2 bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-xs font-medium border border-emerald-200">
+                                            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
                                             <span>Analysis Complete</span>
                                         </div>
                                     </div>
-                                    <div className="p-8 overflow-y-auto custom-scrollbar flex-1 bg-slate-900/30">
-                                        <div className="prose prose-invert prose-indigo max-w-none prose-sm">
-                                            <h4 className="text-slate-200 font-semibold mb-2">Summary</h4>
-                                            <p className="text-slate-400 mb-6">{response.summary || 'No summary provided.'}</p>
+                                    <div className="p-8 overflow-y-auto custom-scrollbar flex-1 bg-white">
+                                        <div className="prose prose-slate max-w-none prose-sm text-slate-700">
+                                            <h4 className="text-slate-900 font-semibold mb-2">Summary</h4>
+                                            <p className="text-slate-600 mb-6">{response.summary || 'No summary provided.'}</p>
                                             
                                             {response.suggestions && response.suggestions.length > 0 ? (
                                                 <div className="space-y-4">
-                                                    <h4 className="text-slate-200 font-semibold">Code Suggestions</h4>
+                                                    <h4 className="text-slate-900 font-semibold">Code Suggestions</h4>
                                                     {response.suggestions.map((s, i) => {
-                                                        console.log("Suggestion object:", s);
                                                         return (
-                                                            <div key={i} className="bg-slate-800 p-4 rounded-lg border border-slate-700">
-                                                                <div className="flex items-center space-x-2 text-indigo-400 text-xs mb-2 font-mono">
+                                                            <div key={i} className="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                                                                <div className="flex items-center space-x-2 text-indigo-600 text-xs mb-2 font-mono">
                                                                     <Icon name="file-code" size={14} />
                                                                     <span>{s.file_path || s.filePath || 'Unknown File'}</span>
                                                                     {(s.line_number || s.lineNumber) && <span>:L{s.line_number || s.lineNumber}</span>}
                                                                 </div>
-                                                                <p className="text-slate-300 text-sm whitespace-pre-line">
+                                                                <p className="text-slate-700 text-sm whitespace-pre-line">
                                                                     {s.comment.split('```').map((part, idx) => {
                                                                         if (idx % 2 === 1) {
-                                                                            // Extract language identifier if present
                                                                             const lines = part.split('\n');
                                                                             const language = lines[0].match(/^[a-z]+$/) ? lines[0] : null;
                                                                             const code = language ? lines.slice(1).join('\n') : part;
                                                                             return (
-                                                                                <pre key={idx} className="bg-slate-950 p-3 rounded-md border border-slate-700 my-2 overflow-x-auto text-xs text-emerald-400 font-mono">
+                                                                                <pre key={idx} className="bg-slate-900 p-3 rounded-md border border-slate-700 my-2 overflow-x-auto text-xs text-emerald-400 font-mono">
                                                                                     {language && <div className="text-[10px] text-slate-500 mb-1 uppercase">{language}</div>}
                                                                                     <code>{code}</code>
                                                                                 </pre>
@@ -297,23 +295,24 @@
                                                                         }
                                                                         return <span key={idx}>{part}</span>;
                                                                     })}
-                                                                </p>                                                            </div>
+                                                                </p>
+                                                            </div>
                                                         );
                                                     })}
                                                 </div>
                                             ) : (
-                                                <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-700/50 flex items-center space-x-3 text-slate-500 italic">
+                                                <div className="bg-slate-50 p-4 rounded-lg border border-slate-200 flex items-center space-x-3 text-slate-500 italic">
                                                     <Icon name="check-circle" size={16} />
                                                     <span>No actionable suggestions found for this diff.</span>
                                                 </div>
                                             )}
                                         </div>
                                     </div>
-                                    <div className="p-4 bg-slate-800/80 border-t border-slate-700 flex justify-between items-center">
-                                        <p className="text-[10px] text-slate-500">Processed with Bitbucket API v2.0</p>
+                                    <div className="p-4 bg-slate-50 border-t border-slate-200 flex justify-between items-center">
+                                        <p className="text-[10px] text-slate-400">Processed with Bitbucket API v2.0</p>
                                         <button 
                                             onClick={() => setResponse(null)}
-                                            className="text-xs text-slate-400 hover:text-white transition-colors flex items-center space-x-1"
+                                            className="text-xs text-slate-500 hover:text-slate-800 transition-colors flex items-center space-x-1"
                                         >
                                             <Icon name="rotate-ccw" size={14} />
                                             <span>Clear Results</span>
@@ -325,7 +324,7 @@
                     </main>
                     
                     <footer className="max-w-6xl mx-auto mt-12 pt-8 border-t border-slate-800 text-center">
-                        <p className="text-slate-500 text-xs">© 2024 PR Review Assistant. Empowering developers with AI insight.</p>
+                        <p className="text-slate-500 text-xs">PR Review Assistant. Empowering developers with AI insight.</p>
                     </footer>
                 </div>
             );
