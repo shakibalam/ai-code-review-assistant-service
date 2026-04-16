@@ -1,0 +1,45 @@
+{
+	"info": {
+		"_postman_id": "7f2a1b1d-8e4a-4d4b-9e4a-5d4b9e4a5d4b",
+		"name": "AI PR Review Assistant",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Bitbucket Webhook - PR Created",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Hub-Signature",
+						"value": "sha256=my-secret-token",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"eventKey\": \"pullrequest:created\",\n  \"actor\": { \"display_name\": \"Shakib Alam\" },\n  \"repository\": {\n    \"slug\": \"code-review\",\n    \"full_name\": \"shakib/code-review\",\n    \"workspace\": { \"slug\": \"shakib-ws\" }\n  },\n  \"pullrequest\": {\n    \"id\": 101,\n    \"title\": \"Feature: Add login logic\",\n    \"source\": {\n      \"branch\": { \"name\": \"feature/login\" },\n      \"commit\": { \"hash\": \"abc123456789\" }\n    },\n    \"destination\": {\n      \"branch\": { \"name\": \"main\" },\n      \"commit\": { \"hash\": \"def987654321\" }\n    }\n  }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/webhook/bitbucket/pr-review",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"webhook",
+						"bitbucket",
+						"pr-review"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
