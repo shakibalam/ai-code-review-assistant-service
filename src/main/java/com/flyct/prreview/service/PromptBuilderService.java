@@ -70,7 +70,12 @@ public class PromptBuilderService {
     private String processDiff(String rawDiff) {
         if (rawDiff == null || rawDiff.isEmpty()) return "";
 
-        String[] lines = rawDiff.split("\n");
+        // Unescape double-backslash sequences introduced by JSON transit
+        String sanitizedDiff = rawDiff.replace("\\\\", "\\")
+                                      .replace("\\n", "\n")
+                                      .replace("\\\"", "\"");
+
+        String[] lines = sanitizedDiff.split("\n");
         StringBuilder result = new StringBuilder();
         int javaFileCount = 0;
         boolean inJavaFile = false;
